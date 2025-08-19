@@ -7,7 +7,7 @@ import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function TodoItem({value, labelId, handleToggle, chekboxClickHandler, deleteButtonClick}) {
+export default function TodoItem({value, labelId, handleToggle, chekboxClickHandler, deleteButtonClick, taskCountFunc}) {
   return (
     <ListItem
       key={value.id}
@@ -17,6 +17,7 @@ export default function TodoItem({value, labelId, handleToggle, chekboxClickHand
           aria-label="delete"
           onClick={() => {
             deleteButtonClick(value.id);
+            if(value.completed === true){ taskCountFunc(prev => prev - 1); }
           }}
         >
           <DeleteIcon sx={{ color: "red" }} />
@@ -32,6 +33,8 @@ export default function TodoItem({value, labelId, handleToggle, chekboxClickHand
             checked={value.completed}
             onClick={() => {
               chekboxClickHandler(value.id);
+              if(!value.completed) taskCountFunc(prev => prev + 1);
+              else taskCountFunc(prev => prev -1);
             }}
             tabIndex={-1}
             disableRipple

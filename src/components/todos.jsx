@@ -1,16 +1,10 @@
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Navbar from "./navbar";
 import TodoItem from "./todo-item";
 import TodoForm from "./todo-form";
+import TodoCounter from "./todo-counter";
 
 const initial_list = [
   { id: uuidv4(), title: "example task", completed: false },
@@ -19,6 +13,7 @@ const initial_list = [
 export default function Todos() {
   const [listItems, setListItems] = useState(initial_list);
   const [toggleForm, setToggleForm] = useState(false);
+  const [taskCount, setTaskCount] = useState(0);
   const handleToggle = (value) => {
     console.log(value);
   };
@@ -33,7 +28,9 @@ export default function Todos() {
   const chekboxClickHandler = (idx) => {
     setListItems((prev) => {
       return prev.map((elem) => {
-        if (elem.id === idx) return { ...elem, completed: !elem.completed };
+        if (elem.id === idx){ 
+            return { ...elem, completed: !elem.completed };
+        }
         return { ...elem };
       });
     });
@@ -48,6 +45,8 @@ export default function Todos() {
     <>
       <Navbar form_state={setToggleForm} />
       {toggleForm && <TodoForm sendData={updateList}/>}
+      {listItems.length && <TodoCounter currCount={taskCount}
+        totalCount={listItems.length}/>}
       <List
         sx={{
           width: "100%",
@@ -59,7 +58,6 @@ export default function Todos() {
       >
         {listItems.map((value, idx) => {
           const labelId = `checkbox-list-label-${idx}`;
-
           return (
             <TodoItem
               key={idx}
@@ -68,6 +66,7 @@ export default function Todos() {
               handleToggle={handleToggle}
               chekboxClickHandler={chekboxClickHandler}
               deleteButtonClick={deleteButtonClick}
+              taskCountFunc={setTaskCount}
             />
           );
         })}

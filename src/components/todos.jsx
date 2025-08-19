@@ -10,16 +10,18 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Navbar from "./navbar";
 import TodoItem from "./todo-item";
+import TodoForm from "./todo-form";
 
 const initial_list = [
-  { id: 1, title: "bath", completed: false },
-  { id: 2, title: "walk", completed: false },
-  { id: 3, title: "play badminton", completed: true },
-  { id: 4, title: "study", completed: false },
+  { id: uuidv4(), title: "bath", completed: false },
+  { id: uuidv4(), title: "walk", completed: false },
+  { id: uuidv4(), title: "play badminton", completed: true },
+  { id: uuidv4(), title: "study", completed: false },
 ];
 
 export default function Todos() {
   const [listItems, setListItems] = useState(initial_list);
+  const [toggleForm, setToggleForm] = useState(false);
   const handleToggle = (value) => {
     console.log(value);
   };
@@ -40,9 +42,15 @@ export default function Todos() {
     });
     console.log(idx);
   };
+  const updateList = (new_task) => {
+    setListItems((prev) => {
+        return [...prev, {id:uuidv4(), title:new_task, completed: false}]
+    });
+  }
   return (
     <>
-    <Navbar/>
+      <Navbar form_state={setToggleForm} />
+      {toggleForm && <TodoForm sendData={updateList}/>}
       <List
         sx={{
           width: "100%",
@@ -56,8 +64,13 @@ export default function Todos() {
           const labelId = `checkbox-list-label-${idx}`;
 
           return (
-            <TodoItem key={idx} value={value} labelId={labelId} handleToggle={handleToggle}
-                chekboxClickHandler={chekboxClickHandler} deleteButtonClick={deleteButtonClick}
+            <TodoItem
+              key={idx}
+              value={value}
+              labelId={labelId}
+              handleToggle={handleToggle}
+              chekboxClickHandler={chekboxClickHandler}
+              deleteButtonClick={deleteButtonClick}
             />
           );
         })}

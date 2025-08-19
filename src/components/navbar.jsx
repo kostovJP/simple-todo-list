@@ -8,7 +8,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Fab from "@mui/material/Fab";
 import EditIcon from "@mui/icons-material/Edit";
 
-export default function Navbar() {
+export default function Navbar({form_state}) {
+    const handleClickFab = () => {
+        form_state((prev) => !prev);
+    }
   return (
     <Box sx={{ flexGrow: 1}}>
       <AppBar position="static">
@@ -25,7 +28,10 @@ export default function Navbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             TODO LIST
           </Typography>
-          <Fab color="secondary" aria-label="edit">
+          <Fab color="transparent" aria-label="edit" 
+            size="medium"
+            onClick={handleClickFab}
+          >
             <EditIcon />
           </Fab>
         </Toolbar>

@@ -6,14 +6,21 @@ import TodoItem from "./todo-item";
 import TodoForm from "./todo-form";
 import TodoCounter from "./todo-counter";
 
-const initial_list = [
-  { id: uuidv4(), title: "example task", completed: false },
-];
-
+const get_initial_data = () => {
+  const data = JSON.parse(localStorage.getItem("todos"))
+  if(!data){ return [{id:uuidv4(), title:"example task", completed:false}]; }
+  else return data;
+}
 export default function Todos() {
-  const [listItems, setListItems] = useState(initial_list);
+  const [listItems, setListItems] = useState(get_initial_data);
   const [toggleForm, setToggleForm] = useState(false);
   const [taskCount, setTaskCount] = useState(0);
+  
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(listItems))
+  }, [listItems]);
+
   const handleToggle = (value) => {
     console.log(value);
   };

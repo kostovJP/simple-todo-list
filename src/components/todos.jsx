@@ -13,10 +13,7 @@ import TodoItem from "./todo-item";
 import TodoForm from "./todo-form";
 
 const initial_list = [
-  { id: uuidv4(), title: "bath", completed: false },
-  { id: uuidv4(), title: "walk", completed: false },
-  { id: uuidv4(), title: "play badminton", completed: true },
-  { id: uuidv4(), title: "study", completed: false },
+  { id: uuidv4(), title: "example task", completed: false },
 ];
 
 export default function Todos() {

@@ -23,6 +23,7 @@ export default function TodoItem({value, labelId, handleToggle, chekboxClickHand
         </IconButton>
       }
       disablePadding
+      sx={{borderBottom: "1px solid #d3d3d3"}}
     >
       <ListItemButton role={undefined} onClick={handleToggle(value)} dense>
         <ListItemIcon>

@@ -15,7 +15,7 @@ export default function TodoForm({ sendData }) {
 
   return (
     <form
-      className="grid grid-cols-1 border-none bg-white w-90 p-2
+      className="grid grid-cols-1 border-none bg-white w-85 p-2
         rounded-md m-2 shadow-md justify-self-center
     "
         onSubmit={handleSubmit(formSubmitHandler)}

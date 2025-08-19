@@ -49,12 +49,12 @@ export default function Todos() {
         totalCount={listItems.length}/>}
       <List
         sx={{
-          width: "100%",
           maxWidth: 360,
           bgcolor: "background.paper",
           justifySelf: "center",
           m: 2,
         }}
+        className="w-85"
       >
         {listItems.map((value, idx) => {
           const labelId = `checkbox-list-label-${idx}`;

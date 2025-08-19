@@ -45,7 +45,7 @@ export default function Todos() {
     <>
       <Navbar form_state={setToggleForm} />
       {toggleForm && <TodoForm sendData={updateList}/>}
-      {listItems.length && <TodoCounter currCount={taskCount}
+      {listItems.length !== 0 && <TodoCounter currCount={taskCount}
         totalCount={listItems.length}/>}
       <List
         sx={{

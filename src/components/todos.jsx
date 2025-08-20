@@ -11,15 +11,23 @@ const get_initial_data = () => {
   if(!data){ return [{id:uuidv4(), title:"example task", completed:false}]; }
   else return data;
 }
+
+const get_initial_count = () => {
+  const init_count = JSON.parse(localStorage.getItem("counts"));
+  if(!init_count){ return 0; }
+  else return init_count;
+}
+
 export default function Todos() {
   const [listItems, setListItems] = useState(get_initial_data);
   const [toggleForm, setToggleForm] = useState(false);
-  const [taskCount, setTaskCount] = useState(0);
+  const [taskCount, setTaskCount] = useState(get_initial_count);
   
 
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(listItems))
-  }, [listItems]);
+    localStorage.setItem("todos", JSON.stringify(listItems));
+    localStorage.setItem("counts", JSON.stringify(taskCount));
+  }, [listItems, taskCount]);
 
   const handleToggle = (value) => {
     console.log(value);
@@ -30,7 +38,6 @@ export default function Todos() {
         return elem.id !== idx;
       });
     });
-    console.log(`element with id ${idx} has been deleted`);
   };
   const chekboxClickHandler = (idx) => {
     setListItems((prev) => {
@@ -41,7 +48,6 @@ export default function Todos() {
         return { ...elem };
       });
     });
-    console.log(idx);
   };
   const updateList = (new_task) => {
     setListItems((prev) => {

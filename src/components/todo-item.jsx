@@ -34,7 +34,10 @@ export default function TodoItem({value, labelId, handleToggle, chekboxClickHand
             onClick={() => {
               chekboxClickHandler(value.id);
               if(!value.completed) taskCountFunc(prev => prev + 1);
-              else taskCountFunc(prev => prev -1);
+              else taskCountFunc(prev => {
+                if(prev === 0){ return prev; }
+                return prev -1; 
+              });
             }}
             tabIndex={-1}
             disableRipple

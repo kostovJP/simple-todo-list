@@ -9,8 +9,8 @@ export default function TodoForm({ sendData }) {
   } = useForm();
 
   const formSubmitHandler = (evt) => {
-    console.log("submitted", evt.todo_title);
     sendData(evt.todo_title);
+    evt.todo_title = "registered";
   };
 
   return (
